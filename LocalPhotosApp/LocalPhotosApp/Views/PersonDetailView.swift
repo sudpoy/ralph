@@ -61,7 +61,7 @@ struct PersonDetailView: View {
             if selectedAsset != nil {
                 PhotoDetailView(
                     assets: assets,
-                    initialIndex: selectedIndex
+                    selectedIndex: $selectedIndex
                 )
             }
         }

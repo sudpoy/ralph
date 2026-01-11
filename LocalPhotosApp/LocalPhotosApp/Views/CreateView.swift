@@ -113,6 +113,9 @@ struct CreateView: View {
                 .padding()
             }
             .navigationTitle("Create")
+            .sheet(isPresented: $showCollagePicker) {
+                CollagePickerView()
+            }
         }
     }
 }

@@ -24,6 +24,8 @@
 		1A000000000000000000000F /* PersonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000000000000000000023 /* PersonDetailView.swift */; };
 		1A0000000000000000000024 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000000000000000000025 /* LocationService.swift */; };
 		1A0000000000000000000026 /* PlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000000000000000000027 /* PlacesView.swift */; };
+		1A0000000000000000000028 /* CollagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000000000000000000029 /* CollagePickerView.swift */; };
+		1A000000000000000000002A /* CollagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A000000000000000000002B /* CollagePreviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		1A0000000000000000000023 /* PersonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailView.swift; sourceTree = "<group>"; };
 		1A0000000000000000000025 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		1A0000000000000000000027 /* PlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesView.swift; sourceTree = "<group>"; };
+		1A0000000000000000000029 /* CollagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollagePickerView.swift; sourceTree = "<group>"; };
+		1A000000000000000000002B /* CollagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollagePreviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 				1A000000000000000000001E /* AlbumDetailView.swift */,
 				1A0000000000000000000023 /* PersonDetailView.swift */,
 				1A0000000000000000000027 /* PlacesView.swift */,
+				1A0000000000000000000029 /* CollagePickerView.swift */,
+				1A000000000000000000002B /* CollagePreviewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,6 +207,8 @@
 				1A000000000000000000000F /* PersonDetailView.swift in Sources */,
 				1A0000000000000000000024 /* LocationService.swift in Sources */,
 				1A0000000000000000000026 /* PlacesView.swift in Sources */,
+				1A0000000000000000000028 /* CollagePickerView.swift in Sources */,
+				1A000000000000000000002A /* CollagePreviewView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

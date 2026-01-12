@@ -94,6 +94,115 @@ xcodebuild -scheme <SchemeName> -sdk iphonesimulator -configuration Debug build
 - `xcodebuild` performs full compilation and catches all errors
 - Stories are NOT complete until xcodebuild succeeds with zero errors
 
+## iOS Simulator Testing (Required for iOS UI Stories)
+
+For any iOS story that changes UI, you MUST verify it works in the simulator. This is equivalent to browser testing for web apps.
+
+### Setup (run once per session)
+
+```bash
+# Check available simulators
+xcrun simctl list devices available
+
+# Boot a simulator (e.g., iPhone 17 Pro)
+xcrun simctl boot "iPhone 17 Pro"
+
+# Open Simulator app
+open -a Simulator
+```
+
+### Build, Install, and Launch App
+
+```bash
+# Build the app
+xcodebuild -scheme <SchemeName> -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+
+# Install the app (find .app path in build output)
+xcrun simctl install booted /path/to/DerivedData/<Project>/Build/Products/Debug-iphonesimulator/<AppName>.app
+
+# Launch the app (use bundle ID from Info.plist)
+xcrun simctl launch booted <BundleIdentifier>
+```
+
+### Capture Screenshots for Validation
+
+```bash
+# Take screenshot of current simulator state
+xcrun simctl io booted screenshot /tmp/screenshot.png
+
+# Use Read tool to view and analyze the screenshot
+```
+
+### Validation Workflow
+
+1. **Build and install** the app on simulator
+2. **Launch the app** using bundle identifier
+3. **Capture screenshot** of the relevant screen
+4. **Analyze screenshot** to verify UI matches acceptance criteria
+5. **Document findings** in progress.txt
+
+### User-Defined Success Criteria
+
+In `prd.json`, users can define `simulatorValidation` for each story:
+
+```json
+{
+  "id": "US-001",
+  "title": "Tab navigation",
+  "acceptanceCriteria": [...],
+  "simulatorValidation": {
+    "screens": [
+      {
+        "name": "Gallery Tab",
+        "action": "Launch app",
+        "expectedElements": ["Gallery title", "3-column photo grid", "Tab bar with 3 tabs"]
+      },
+      {
+        "name": "Collections Tab",
+        "action": "Tap Collections tab",
+        "expectedElements": ["Collections title", "People section", "Albums list"]
+      }
+    ]
+  }
+}
+```
+
+### Validation Checks
+
+When validating, verify these elements are present in screenshots:
+- **Navigation elements**: Tab bars, navigation bars, back buttons
+- **Content layout**: Grids, lists, cards as specified
+- **Text labels**: Titles, descriptions, button labels
+- **Icons**: SF Symbols, custom icons
+- **States**: Loading, empty, error states as appropriate
+
+### Example Validation Commands
+
+```bash
+# Full validation workflow
+SCHEME="LocalPhotosApp"
+BUNDLE_ID="com.ralph.LocalPhotosApp"
+DEVICE="iPhone 17 Pro"
+
+# Build
+xcodebuild -scheme $SCHEME -destination "platform=iOS Simulator,name=$DEVICE" build
+
+# Get app path (from DerivedData)
+APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "$SCHEME.app" -path "*/Debug-iphonesimulator/*" | head -1)
+
+# Install and launch
+xcrun simctl install booted "$APP_PATH"
+xcrun simctl launch booted $BUNDLE_ID
+
+# Wait for app to load
+sleep 2
+
+# Capture and analyze
+xcrun simctl io booted screenshot /tmp/validation.png
+```
+
+An iOS UI story is NOT complete until simulator validation passes.
+
 ## Browser Testing (Required for Frontend Stories)
 
 For any story that changes UI, you MUST verify it works in the browser:

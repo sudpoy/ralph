@@ -29,6 +29,8 @@ cp commands/ralph.md ~/.claude/commands/
 | `progress.txt` | Append-only learnings log (generated) |
 | `commands/prd.md` | /prd slash command |
 | `commands/ralph.md` | /ralph slash command |
+| `scripts/ios-simulator-validate.sh` | iOS simulator validation helper |
+| `docs/ios-simulator-testing.md` | iOS testing documentation |
 
 ## Workflow
 
@@ -51,6 +53,44 @@ cp commands/ralph.md ~/.claude/commands/
 - **progress.txt** - learnings persist
 - **prd.json** - task status persists
 - **AGENTS.md** - patterns discovered persist
+
+## iOS Development
+
+Ralph supports iOS app development with simulator-based validation:
+
+### Build Validation
+- Use `xcodebuild` instead of `swiftc -parse` for proper type checking
+- All stories require successful build before completion
+
+### Simulator Testing
+```bash
+# Run validation script
+./scripts/ios-simulator-validate.sh <scheme> <bundle_id> [device]
+
+# Example
+./scripts/ios-simulator-validate.sh LocalPhotosApp com.ralph.LocalPhotosApp "iPhone 17 Pro"
+```
+
+### User-Defined Success Criteria
+Add `simulatorValidation` to prd.json stories:
+```json
+{
+  "id": "US-001",
+  "simulatorValidation": {
+    "scheme": "MyApp",
+    "bundleId": "com.example.MyApp",
+    "screens": [
+      {
+        "name": "Main Screen",
+        "action": "launch",
+        "expectedElements": ["Tab bar", "Title", "Content grid"]
+      }
+    ]
+  }
+}
+```
+
+See `docs/ios-simulator-testing.md` for full documentation.
 
 ## Repository
 
